@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berachah Printing &amp; Graphic Solutions — Print. Design. Digital.</title>
+<meta name="description" content="Berachah Printing & Graphic Solutions — quality printing, graphic design, web design and digital marketing for businesses in Lapu-Lapu City, Cebu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --ink:#14171f;
+  --ink-soft:#2a2f3c;
+  --paper:#f2f3ee;
+  --paper-white:#ffffff;
+  --line:#dcdbd0;
+  --accent:#ff3b1f;      /* press red — CTA */
+  --accent-dark:#d92c12;
+  --cyan:#00aeef;
+  --magenta:#e8047c;
+  --yellow:#ffd400;
+  --muted:#5a5f6c;
+
+  --font-display:'Anton', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+
+  --container:1180px;
+  --radius:2px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit; text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{margin:0; font-family:var(--font-display); font-weight:400; text-transform:uppercase; letter-spacing:0.01em; line-height:1.02;}
+p{margin:0;}
+button{font-family:inherit; cursor:pointer;}
+.wrap{max-width:var(--container); margin:0 auto; padding:0 24px;}
+
+/* ============================================================
+   SIGNATURE — printer's colour bar
+   ============================================================ */
+.colorbar{
+  display:flex; height:6px; width:100%;
+}
+.colorbar span{flex:1;}
+.colorbar .c{background:var(--cyan);}
+.colorbar .m{background:var(--magenta);}
+.colorbar .y{background:var(--yellow);}
+.colorbar .k{background:var(--ink);}
+
+/* crop-mark corner decoration, used on framed panels */
+.crop{position:relative;}
+.crop::before,.crop::after,
+.crop .cm2::before,.crop .cm2::after{content:"";position:absolute;width:18px;height:18px;pointer-events:none;}
+.crop::before{top:-1px;left:-1px;border-top:2px solid var(--ink);border-left:2px solid var(--ink);}
+.crop::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--ink);border-right:2px solid var(--ink);}
+
+/* eyebrow / mono label style used throughout as a spec-sheet motif */
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-mono);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:15px 26px;
+  border:2px solid var(--ink);
+  border-radius:var(--radius);
+  background:transparent;
+  color:var(--ink);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  white-space:nowrap;
+}
+.btn:hover{transform:translate(-2px,-2px); box-shadow:4px 4px 0 var(--ink);}
+.btn-primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.btn-primary:hover{box-shadow:4px 4px 0 var(--ink); background:var(--accent-dark); border-color:var(--accent-dark);}
+.btn-ghost-light{border-color:#fff; color:#fff;}
+.btn-ghost-light:hover{box-shadow:4px 4px 0 var(--yellow);}
+.btn-block{width:100%; justify-content:center;}
+
+/* stamp effect on primary quote buttons */
+.stamp{position:relative;}
+.stamp .stamp-mark{
+  position:absolute; top:-14px; right:-14px;
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono); font-size:8px; letter-spacing:0.05em;
+  color:var(--cyan); text-transform:uppercase; text-align:center;
+  transform:rotate(-14deg) scale(0);
+  opacity:0;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+  background:var(--paper-white);
+}
+.stamp:hover .stamp-mark{transform:rotate(-14deg) scale(1); opacity:1;}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{
+  position:sticky; top:0; z-index:100;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.nav-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0;
+}
+.logo{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-display);
+  font-size:19px;
+  text-transform:uppercase;
+  letter-spacing:0.01em;
+}
+.logo .mark{
+  width:34px;height:34px;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  flex-shrink:0;
+}
+.logo .mark span{
+  font-family:var(--font-display); color:#fff; font-size:16px;
+}
+.logo .mark::after{
+  content:"";position:absolute; top:3px; right:3px; width:6px; height:6px; background:var(--accent); border-radius:50%;
+}
+.logo small{display:block; font-family:var(--font-mono); font-size:9px; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase; margin-top:2px;}
+
+nav.primary-nav{display:flex; gap:34px;}
+nav.primary-nav a{
+  font-family:var(--font-mono); font-size:13px; letter-spacing:0.04em; text-transform:uppercase;
+  position:relative; padding:4px 0;
+}
+nav.primary-nav a::after{
+  content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--accent);
+  transition:width .2s ease;
+}
+nav.primary-nav a:hover::after{width:100%;}
+
+.nav-cta{display:flex; align-items:center; gap:18px;}
+.hamburger{display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px;}
+.hamburger span{width:24px; height:2px; background:var(--ink);}
+
+.mobile-panel{
+  display:none;
+  position:fixed; inset:0; z-index:200;
+  background:var(--ink);
+  color:#fff;
+  padding:24px;
+  flex-direction:column;
+}
+.mobile-panel.open{display:flex;}
+.mobile-panel .top-row{display:flex; justify-content:space-between; align-items:center;}
+.mobile-panel .close-btn{background:none;border:none;color:#fff;font-size:28px;line-height:1;}
+.mobile-panel nav{display:flex; flex-direction:column; gap:0; margin-top:50px;}
+.mobile-panel nav a{
+  font-family:var(--font-display); font-size:32px; text-transform:uppercase;
+  padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.mobile-panel .mp-cta{margin-top:30px;}
+
+/* sticky mobile CTA bar */
+.sticky-mobile-cta{
+  display:none;
+  position:fixed; left:0; right:0; bottom:0; z-index:90;
+  background:var(--ink);
+  padding:12px 16px;
+  gap:10px;
+}
+.sticky-mobile-cta .btn{flex:1;}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding:64px 0 0;
+  position:relative;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:56px;
+  align-items:center;
+  padding-bottom:64px;
+}
+.hero h1{
+  font-size:clamp(40px,5.4vw,74px);
+  margin:0 0 22px;
+}
+.hero h1 em{font-style:normal; color:var(--accent);}
+.hero .sub{
+  font-family:var(--font-mono);
+  font-size:14px;
+  letter-spacing:0.03em;
+  color:var(--ink-soft);
+  margin-bottom:20px;
+  text-transform:uppercase;
+}
+.hero p.lede{
+  font-size:17px; line-height:1.65; color:var(--muted); max-width:480px; margin-bottom:34px;
+}
+.hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+
+/* product swatch collage (illustrated, not stock photography) */
+.collage{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,86px);
+  gap:12px;
+  padding:20px;
+  background:var(--paper-white);
+  border:1px solid var(--line);
+}
+.swatch{
+  position:relative;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:10px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.swatch span{position:relative; z-index:2;}
+.swatch::after{content:"";position:absolute; inset:0; background:rgba(0,0,0,0.14);}
+.swatch.big{grid-column:span 2; grid-row:span 2;}
+.sw1{background:var(--ink);}
+.sw2{background:var(--accent);}
+.sw3{background:var(--cyan);}
+.sw4{background:var(--magenta);}
+.sw5{background:#3d4152;}
+.sw6{background:var(--yellow); color:var(--ink);}
+.sw7{background:#7a1710;}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.trustbar{
+  background:var(--ink);
+  color:#fff;
+  padding:20px 0;
+}
+.trust-row{
+  display:flex; align-items:center; justify-content:center; gap:22px;
+  flex-wrap:wrap;
+  font-family:var(--font-mono);
+  font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+}
+.trust-row .dot{width:5px;height:5px;background:var(--accent); border-radius:50%;}
+.trust-line2{
+  text-align:center; padding-top:14px; margin-top:14px; border-top:1px solid rgba(255,255,255,0.14);
+  font-family:var(--font-display); text-transform:uppercase; font-size:clamp(18px,2.4vw,26px);
+}
+.trust-line2 span{color:var(--accent);}
+
+/* ============================================================
+   SECTION scaffolding
+   ============================================================ */
+section{padding:96px 0;}
+.section-head{max-width:640px; margin-bottom:56px;}
+.section-head h2{font-size:clamp(30px,4vw,46px); margin-bottom:16px;}
+.section-head p{color:var(--muted); font-size:16px; line-height:1.6;}
+.section-alt{background:var(--paper-white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.section-dark{background:var(--ink); color:#fff;}
+.section-dark .muted{color:rgba(255,255,255,0.6);}
+
+/* ============================================================
+   SERVICES — 4 categories
+   ============================================================ */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.service-card{
+  background:var(--paper-white);
+  padding:32px 26px 28px;
+  display:flex; flex-direction:column;
+  transition:background .2s ease;
+}
+.service-card:hover{background:var(--ink); color:#fff;}
+.service-card:hover .service-list li{color:rgba(255,255,255,0.72);}
+.service-card:hover .btn{border-color:#fff; color:#fff;}
+.service-card:hover .btn:hover{box-shadow:4px 4px 0 var(--accent);}
+.service-num{
+  font-family:var(--font-mono); font-size:12px; color:var(--accent); margin-bottom:22px;
+}
+.service-card h3{font-size:21px; margin-bottom:16px; line-height:1.15;}
+.service-list{margin-bottom:26px; flex-grow:1;}
+.service-list li{
+  font-size:14px; color:var(--muted); padding:6px 0; border-top:1px solid var(--line);
+}
+.service-card:hover .service-list li{border-top-color:rgba(255,255,255,0.14);}
+.service-list li:first-child{border-top:none;}
+
+/* ============================================================
+   WHY US
+   ============================================================ */
+.why-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line); border:1px solid var(--line);
+}
+.why-card{background:var(--paper-white); padding:34px 28px;}
+.why-icon{width:46px;height:46px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; border:2px solid var(--ink);}
+.why-card h3{font-size:18px; margin-bottom:12px; text-transform:none; font-family:var(--font-body); font-weight:700;}
+.why-card p{color:var(--muted); font-size:14.5px; line-height:1.6;}
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+.product-card{
+  background:var(--paper-white);
+  border:1px solid var(--line);
+  overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.product-card:hover{transform:translateY(-4px); box-shadow:0 12px 0 -6px var(--line), 6px 6px 0 var(--ink);}
+.product-visual{
+  height:130px;
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:15px; color:#fff; text-transform:uppercase; letter-spacing:0.02em;
+}
+.product-visual::before{content:"";position:absolute; top:8px; left:8px; width:10px; height:10px; border-top:2px solid rgba(255,255,255,0.55); border-left:2px solid rgba(255,255,255,0.55);}
+.product-visual::after{content:"";position:absolute; bottom:8px; right:8px; width:10px; height:10px; border-bottom:2px solid rgba(255,255,255,0.55); border-right:2px solid rgba(255,255,255,0.55);}
+.product-body{padding:16px 18px 20px;}
+.product-body .plabel{font-family:var(--font-mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px;}
+.product-body h4{font-family:var(--font-body); font-weight:700; text-transform:none; font-size:16px; margin-bottom:14px;}
+.product-body .btn{padding:9px 14px; font-size:11px; width:100%; justify-content:center;}
+
+/* ============================================================
+   PORTFOLIO
+   ============================================================ */
+.portfolio-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+}
+.portfolio-item{
+  aspect-ratio:4/3;
+  position:relative;
+  display:flex; align-items:flex-end;
+  padding:16px;
+  overflow:hidden;
+}
+.portfolio-item span{
+  position:relative; z-index:2;
+  font-family:var(--font-mono); font-size:11px; color:#fff; text-transform:uppercase; letter-spacing:0.06em;
+}
+.portfolio-item::after{content:"";position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);}
+.portfolio-item::before{content:"";position:absolute; inset:0; opacity:0.9;}
+.p1::before{background:var(--ink);}
+.p2::before{background:var(--accent);}
+.p3::before{background:#3d4152;}
+.p4::before{background:var(--cyan);}
+.p5::before{background:#7a1710;}
+.p6::before{background:var(--magenta);}
+.p7::before{background:#1c2130;}
+.p8::before{background:var(--yellow);}
+.p8 span{color:var(--ink);}
+.p9::before{background:#4a2e12;}
+.portfolio-cta{text-align:center; margin-top:44px;}
+
+/* ============================================================
+   HOW IT WORKS
+   ============================================================ */
+.steps-row{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;
+}
+.step{position:relative; padding:0 24px 0 0;}
+.step-num{
+  font-family:var(--font-mono); font-size:44px; color:var(--line); font-weight:600; line-height:1; margin-bottom:18px;
+}
+.step h3{font-size:18px; text-transform:none; font-family:var(--font-body); font-weight:700; margin-bottom:10px;}
+.step p{color:var(--muted); font-size:14.5px; line-height:1.6;}
+.step-arrow{
+  position:absolute; top:20px; right:-6px;
+  font-family:var(--font-mono); color:var(--accent); font-size:20px;
+}
+
+/* ============================================================
+   BUSINESS SOLUTIONS
+   ============================================================ */
+.solutions-wrap{
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; background:rgba(255,255,255,0.14); margin-bottom:46px;
+}
+.solution-col{padding:34px 28px; background:var(--ink);}
+.solution-col h3{font-size:19px; margin-bottom:18px; color:var(--accent);}
+.solution-col li{font-size:14.5px; padding:7px 0; border-top:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.82);}
+.solution-col li:first-child{border-top:none;}
+.solution-tag{
+  display:inline-block; font-family:var(--font-mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--ink); background:var(--yellow); padding:4px 10px; margin-bottom:14px;
+}
+.one-partner{text-align:center;}
+.one-partner h2{font-size:clamp(26px,3.6vw,40px); margin-bottom:26px;}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.testi-card{background:var(--paper-white); border:1px solid var(--line); padding:28px; display:flex; flex-direction:column;}
+.stars{color:var(--yellow); letter-spacing:2px; margin-bottom:16px; font-size:16px;}
+.testi-card p{font-size:15px; line-height:1.65; color:var(--ink-soft); flex-grow:1; margin-bottom:20px;}
+.testi-name{font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); border-top:1px solid var(--line); padding-top:14px;}
+.review-cta{
+  margin-top:36px; text-align:center; background:var(--paper); border:1px dashed var(--ink); padding:36px; 
+}
+.review-cta h3{font-size:22px; margin-bottom:10px;}
+.review-cta p{color:var(--muted); margin-bottom:22px;}
+
+/* ============================================================
+   QUOTE BANNER
+   ============================================================ */
+.quote-banner{
+  background:var(--accent);
+  color:#fff;
+  padding:90px 0;
+  position:relative;
+  overflow:hidden;
+}
+.quote-banner::before{
+  content:"";position:absolute; inset:0;
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 26px);
+  pointer-events:none;
+}
+.quote-banner-inner{position:relative; text-align:center; max-width:680px; margin:0 auto;}
+.quote-banner h2{font-size:clamp(32px,4.6vw,54px); margin-bottom:18px; color:#fff;}
+.quote-banner p{font-size:17px; margin-bottom:34px; opacity:0.94;}
+.quote-banner .btn{background:var(--ink); border-color:var(--ink); color:#fff;}
+.quote-banner .btn:hover{box-shadow:4px 4px 0 var(--ink); background:#fff; color:var(--ink); border-color:#fff;}
+.quote-fine{
+  margin-top:22px; font-family:var(--font-mono); font-size:12px; opacity:0.85;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;}
+.about-visual{
+  background:var(--ink); aspect-ratio:1/1; position:relative; padding:26px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.about-visual .abbr{font-family:var(--font-display); color:var(--accent); font-size:20px;}
+.about-visual .big-letter{font-family:var(--font-display); font-size:min(18vw,190px); color:#fff; line-height:0.8;}
+.about-copy p{font-size:16.5px; line-height:1.75; color:var(--ink-soft); margin-bottom:20px;}
+.about-copy p:first-of-type{font-size:19px; color:var(--ink); font-weight:600;}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-list{max-width:760px;}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-q{
+  width:100%; text-align:left; background:none; border:none; padding:24px 0;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  font-size:17px; font-weight:600; color:var(--ink);
+}
+.faq-q .icon{
+  width:26px;height:26px; border:1.5px solid var(--ink); border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; position:relative;
+}
+.faq-q .icon::before,.faq-q .icon::after{content:"";position:absolute; background:var(--ink);}
+.faq-q .icon::before{width:10px;height:1.5px;}
+.faq-q .icon::after{width:1.5px;height:10px; transition:transform .2s ease;}
+.faq-item.open .faq-q .icon::after{transform:rotate(90deg); opacity:0;}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+.faq-a p{padding:0 0 24px; color:var(--muted); font-size:15px; line-height:1.65; max-width:600px;}
+
+/* ============================================================
+   CONTACT / QUOTE FORM — order-ticket styling
+   ============================================================ */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); background:var(--paper-white);}
+.contact-info{padding:52px 44px; background:var(--ink); color:#fff;}
+.contact-info h2{color:#fff; font-size:clamp(26px,3.2vw,38px); margin-bottom:18px;}
+.contact-info p{color:rgba(255,255,255,0.7); line-height:1.7; margin-bottom:32px;}
+.info-row{display:flex; gap:14px; padding:14px 0; border-top:1px solid rgba(255,255,255,0.14); font-size:14.5px;}
+.info-row:first-of-type{border-top:none;}
+.info-label{font-family:var(--font-mono); font-size:11px; color:var(--yellow); text-transform:uppercase; letter-spacing:0.06em; width:110px; flex-shrink:0; padding-top:2px;}
+
+.order-ticket{padding:52px 44px;}
+.ticket-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; padding-bottom:18px; border-bottom:2px dashed var(--line);}
+.ticket-head .tnum{font-family:var(--font-mono); font-size:11px; color:var(--muted);}
+.field{margin-bottom:20px;}
+.field label{
+  display:block; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:8px;
+}
+.field input,.field textarea,.field select{
+  width:100%; border:none; border-bottom:2px solid var(--line); background:transparent; padding:10px 2px;
+  font-family:var(--font-body); font-size:15px; color:var(--ink);
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none; border-bottom-color:var(--accent);}
+.field textarea{resize:vertical; min-height:70px;}
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+.check-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px 16px; margin-bottom:26px;}
+.check-item{display:flex; align-items:center; gap:9px; font-size:14px;}
+.check-item input{width:16px;height:16px; accent-color:var(--accent); flex-shrink:0;}
+.file-field{
+  border:2px dashed var(--line); padding:20px; text-align:center; font-family:var(--font-mono); font-size:12.5px; color:var(--muted); margin-bottom:26px; cursor:pointer;
+}
+.form-note{font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:14px; text-align:center;}
+.form-success{display:none; text-align:center; padding:40px 0;}
+.form-success.show{display:block;}
+.form-success .check-circle{
+  width:56px;height:56px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-family:var(--font-display); font-size:26px;
+}
+.form-success h3{margin-bottom:10px;}
+.form-success p{color:var(--muted);}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--ink); color:rgba(255,255,255,0.85); padding-top:70px;}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:56px; border-bottom:1px solid rgba(255,255,255,0.12);}
+.footer-brand .logo{color:#fff;}
+.footer-brand p{margin-top:16px; color:rgba(255,255,255,0.55); font-size:14px; line-height:1.6; max-width:280px;}
+.footer-col h4{font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--yellow); margin-bottom:20px; font-weight:600;}
+.footer-col li{padding:7px 0; font-size:14px; color:rgba(255,255,255,0.7);}
+.footer-col li a:hover{color:var(--accent);}
+.footer-bottom{display:flex; justify-content:space-between; align-items:center; padding:26px 0; font-family:var(--font-mono); font-size:12px; color:rgba(255,255,255,0.45); flex-wrap:wrap; gap:10px;}
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:980px){
+  nav.primary-nav{display:none;}
+  .hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr; gap:40px;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:repeat(2,1fr);}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+  .steps-row{grid-template-columns:repeat(2,1fr); row-gap:40px;}
+  .step-arrow{display:none;}
+  .solutions-wrap{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .desk-cta{display:none;}
+  .sticky-mobile-cta{display:flex;}
+  body{padding-bottom:64px;}
+}
+@media (max-width:600px){
+  section{padding:64px 0;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .portfolio-grid{grid-template-columns:1fr 1fr;}
+  .check-grid{grid-template-columns:1fr 1fr;}
+  .two-col{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .collage{grid-template-rows:repeat(3,70px);}
+}
+</style>
+</head>
+<body>
+
+<div class="colorbar"><span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span></div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav-row">
+    <a href="#top" class="logo">
+      <div class="mark"><span>B</span></div>
+      <div>
+        Berachah
+        <small>Printing &amp; Graphic Solutions</small>
+      </div>
+    </a>
+    <nav class="primary-nav">
+      <a href="#services">Services</a>
+      <a href="#products">Products</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#about">About Us</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-primary desk-cta stamp">Get a Quote
+        <span class="stamp-mark">100%<br>Approved</span>
+      </a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-panel" id="mobilePanel">
+  <div class="top-row">
+    <div class="logo" style="color:#fff;"><div class="mark"><span>B</span></div>Berachah</div>
+    <button class="close-btn" id="closePanelBtn" aria-label="Close menu">&times;</button>
+  </div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#products">Products</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#about">About Us</a>
+    <a href="#faq">FAQs</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="btn btn-primary mp-cta btn-block">Get a Quote</a>
+</div>
+
+<div class="sticky-mobile-cta">
+  <a href="tel:+639000000000" class="btn btn-ghost-light" style="border-color:#fff; flex:0;">Call</a>
+  <a href="#contact" class="btn btn-primary">Get a Quote</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<div id="top"></div>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <div class="sub">Lapu-Lapu City, Cebu · Print · Design · Web · Digital Marketing</div>
+      <h1>Bring your<br>ideas to <em>life.</em></h1>
+      <p class="lede">From business cards and tarpaulins to custom shirts, IDs, stickers, graphic design, websites and digital marketing — we help businesses turn ideas into professional materials and online experiences.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary stamp">Get a Quote
+          <span class="stamp-mark">100%<br>Approved</span>
+        </a>
+        <a href="#services" class="btn">View Our Services</a>
+      </div>
+    </div>
+    <div class="crop reveal in">
+      <div class="collage">
+        <div class="swatch sw1 big"><span>T&#8209;Shirt Printing</span></div>
+        <div class="swatch sw2"><span>Business Cards</span></div>
+        <div class="swatch sw3"><span>Tarpaulin</span></div>
+        <div class="swatch sw4"><span>Mug Printing</span></div>
+        <div class="swatch sw5"><span>ID &amp; Lanyard</span></div>
+        <div class="swatch sw6"><span>Stickers</span></div>
+        <div class="swatch sw7"><span>Web &amp; SEO</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<div class="trustbar">
+  <div class="wrap">
+    <div class="trust-row">
+      <span>Quality Printing</span><span class="dot"></span>
+      <span>Creative Design</span><span class="dot"></span>
+      <span>Business Solutions</span><span class="dot"></span>
+      <span>Digital Marketing</span>
+    </div>
+    <div class="trust-line2">From Print to Digital — We Help Your Business Get <span>Noticed.</span></div>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Do</div>
+      <h2>Everything your brand needs, organized into one place.</h2>
+      <p>Printing and digital marketing used to be two separate errands. We handle both — so your materials and your online presence tell the same story.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01 / Printing</div>
+        <h3>Printing Services</h3>
+        <ul class="service-list">
+          <li>T-Shirt Printing</li>
+          <li>Tarpaulin Printing</li>
+          <li>Document Printing</li>
+          <li>Photo Printing</li>
+          <li>Calling Cards</li>
+          <li>Stickers &amp; Decals</li>
+          <li>PVC &amp; Rush ID</li>
+          <li>Lamination &amp; Binding</li>
+        </ul>
+        <a href="#products" class="btn">Explore Printing</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02 / Custom</div>
+        <h3>Custom &amp; Promotional</h3>
+        <ul class="service-list">
+          <li>Mug Printing</li>
+          <li>Customized Merchandise</li>
+          <li>Marketing Materials</li>
+          <li>Promotional Materials</li>
+          <li>Event Materials</li>
+        </ul>
+        <a href="#products" class="btn">View Custom Printing</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03 / Design</div>
+        <h3>Web &amp; Graphic Design</h3>
+        <ul class="service-list">
+          <li>Graphic Design</li>
+          <li>Web Design</li>
+          <li>Website Development</li>
+          <li>Business Branding</li>
+          <li>Marketing Materials</li>
+        </ul>
+        <a href="#contact" class="btn">Explore Design Services</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04 / Digital</div>
+        <h3>Digital Marketing</h3>
+        <ul class="service-list">
+          <li>SEO</li>
+          <li>SEM</li>
+          <li>Google Search Console</li>
+          <li>Google Business Profile</li>
+          <li>Social Media Optimization</li>
+          <li>Analytics &amp; Marketing Tools</li>
+        </ul>
+        <a href="#contact" class="btn">Grow Your Business Online</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Berachah</div>
+      <h2>A print &amp; digital partner, not just a printing shop.</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-icon">✓</div>
+        <h3>Quality Work</h3>
+        <p>We focus on producing professional materials that represent your business well, every single order.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⌘</div>
+        <h3>Printing + Design, One Roof</h3>
+        <p>Get your design and printing needs handled in one place — no back-and-forth between vendors.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">↗</div>
+        <h3>Business-Focused Solutions</h3>
+        <p>We don't just print materials — we help businesses promote themselves and get found.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">◎</div>
+        <h3>From Offline to Online</h3>
+        <p>Build your brand through printed materials, websites, SEO and digital marketing — together.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✎</div>
+        <h3>Personalized Service</h3>
+        <p>We listen to what you need and recommend the right solution and specs for your project.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⏱</div>
+        <h3>Rush Options Available</h3>
+        <p>Tight deadline? Ask about rush turnaround for IDs, tarpaulins and select print items.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Popular Printing Services</div>
+      <h2>Ready to order? Start here.</h2>
+      <p>Our most-requested products. Tell us the quantity and specs and we'll prepare a quotation.</p>
+    </div>
+    <div class="products-grid reveal">
+      <div class="product-card">
+        <div class="product-visual" style="background:var(--ink);">T-Shirt</div>
+        <div class="product-body">
+          <div class="plabel">Custom Printing</div>
+          <h4>T-Shirt Printing</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:var(--accent);">Tarpaulin</div>
+        <div class="product-body">
+          <div class="plabel">Large Format</div>
+          <h4>Tarpaulin Printing</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:#3d4152;">Cards</div>
+        <div class="product-body">
+          <div class="plabel">Business Essentials</div>
+          <h4>Calling Cards</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:var(--cyan);">ID</div>
+        <div class="product-body">
+          <div class="plabel">Same-Day Available</div>
+          <h4>PVC / Rush ID</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:var(--magenta);">Sticker</div>
+        <div class="product-body">
+          <div class="plabel">Any Shape, Any Size</div>
+          <h4>Stickers &amp; Decals</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:#7a1710;">Mug</div>
+        <div class="product-body">
+          <div class="plabel">Personalized Gifts</div>
+          <h4>Mug Printing</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:#4a2e12;">Docs</div>
+        <div class="product-body">
+          <div class="plabel">B&amp;W &amp; Color</div>
+          <h4>Document Printing</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-visual" style="background:var(--yellow); color:var(--ink);">Bind</div>
+        <div class="product-body">
+          <div class="plabel">Thesis &amp; Reports</div>
+          <h4>Book Binding</h4>
+          <a href="#contact" class="btn">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section id="portfolio" class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Recent Work</div>
+      <h2>See what we've created.</h2>
+      <p>A look at the projects our clients trust us to print, design and deliver.</p>
+    </div>
+    <div class="portfolio-grid reveal">
+      <div class="portfolio-item p1"><span>T-Shirts</span></div>
+      <div class="portfolio-item p2"><span>Tarpaulin</span></div>
+      <div class="portfolio-item p3"><span>Business Cards</span></div>
+      <div class="portfolio-item p4"><span>Stickers</span></div>
+      <div class="portfolio-item p5"><span>ID &amp; Lanyards</span></div>
+      <div class="portfolio-item p6"><span>Mugs</span></div>
+      <div class="portfolio-item p7"><span>Graphic Design</span></div>
+      <div class="portfolio-item p8"><span>Websites</span></div>
+      <div class="portfolio-item p9"><span>Marketing Campaigns</span></div>
+    </div>
+    <div class="portfolio-cta reveal">
+      <a href="#contact" class="btn btn-primary">View All Our Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Process</div>
+      <h2>From idea to finished product.</h2>
+    </div>
+    <div class="steps-row reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Tell Us What You Need</h3>
+        <p>Send us your project details — product, size and quantity.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Get a Quote</h3>
+        <p>We'll discuss specifications, quantity and pricing with you.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Approve the Design</h3>
+        <p>Review your design or proof before we move to production.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>We Print &amp; Deliver</h3>
+        <p>Your finished project is prepared for pickup or delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS SOLUTIONS ============ -->
+<section class="section-dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">More Than Printing</div>
+      <h2 style="color:#fff;">We help businesses build their brand.</h2>
+      <p class="muted">Whether you're starting a business, promoting an event, or growing an existing brand, Berachah supports both your physical marketing materials and your digital presence.</p>
+    </div>
+    <div class="solutions-wrap reveal">
+      <div class="solution-col">
+        <span class="solution-tag">Print</span>
+        <h3>Physical Materials</h3>
+        <ul>
+          <li>Business Cards</li>
+          <li>Flyers</li>
+          <li>Tarpaulins</li>
+          <li>Stickers</li>
+          <li>Promotional Products</li>
+        </ul>
+      </div>
+      <div class="solution-col">
+        <span class="solution-tag">Design</span>
+        <h3>Brand &amp; Identity</h3>
+        <ul>
+          <li>Logos</li>
+          <li>Marketing Materials</li>
+          <li>Website Design</li>
+        </ul>
+      </div>
+      <div class="solution-col">
+        <span class="solution-tag">Digital</span>
+        <h3>Online Growth</h3>
+        <ul>
+          <li>SEO</li>
+          <li>SEM</li>
+          <li>Google Business Profile</li>
+          <li>Social Media</li>
+          <li>Analytics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="one-partner reveal">
+      <h2 style="color:#fff;">One Partner. Multiple Solutions.</h2>
+      <a href="#contact" class="btn btn-primary">Talk to Us About Your Business</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Customer Feedback</div>
+      <h2>What our customers say.</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>Excellent quality and very accommodating staff. They helped us from design all the way to production.</p>
+        <div class="testi-name">— Local Retail Client</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>Our rush IDs were ready faster than we expected, and the print quality held up well.</p>
+        <div class="testi-name">— Event Organizer</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>They handled our tarpaulin and social media graphics together — one less vendor to manage.</p>
+        <div class="testi-name">— Small Business Owner</div>
+      </div>
+    </div>
+    <div class="review-cta reveal">
+      <h3>Have you worked with us?</h3>
+      <p>We'd love to hear about your experience.</p>
+      <a href="#contact" class="btn">Leave a Review</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE BANNER ============ -->
+<div class="quote-banner">
+  <div class="wrap quote-banner-inner">
+    <h2>Have a printing project in mind?</h2>
+    <p>Tell us what you need and we'll help you find the right printing solution.</p>
+    <a href="#contact" class="btn">Request a Quote</a>
+    <div class="quote-fine">Tell us the product, size, quantity and deadline so we can prepare your quotation faster.</div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-visual reveal">
+      <div class="abbr">Est. Lapu-Lapu City, Cebu</div>
+      <div class="big-letter">B.</div>
+    </div>
+    <div class="about-copy reveal">
+      <div class="eyebrow">About Berachah</div>
+      <h2 style="margin-bottom:22px;">More than a print shop.</h2>
+      <p>Berachah Printing &amp; Graphic Solutions provides printing, advertising, graphic design, web and digital marketing solutions for businesses, organizations and individuals.</p>
+      <p>We believe your marketing materials should do more than simply look good — they should help communicate your brand and attract customers.</p>
+      <p>From physical printing to online marketing, we're here to help bring your ideas to life.</p>
+      <a href="#contact" class="btn">Learn More About Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">FAQs</div>
+      <h2>Frequently asked questions.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q">What printing services do you offer?
+          <span class="icon"></span>
+        </button>
+        <div class="faq-a"><p>We provide T-shirt printing, tarpaulin printing, IDs, document printing, photo printing, stickers, decals, mugs, calling cards, book binding, lamination and other customized printing services.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can you design my artwork?
+          <span class="icon"></span>
+        </button>
+        <div class="faq-a"><p>Yes. Graphic design services can be provided for customers who need help preparing their artwork before printing.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I request a quotation?
+          <span class="icon"></span>
+        </button>
+        <div class="faq-a"><p>Yes. Simply submit your project requirements through our quote form and we'll get back to you with pricing and specs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you offer digital marketing services?
+          <span class="icon"></span>
+        </button>
+        <div class="faq-a"><p>Yes. Berachah also offers SEO, SEM, social media optimization, Google Business Profile setup and other digital marketing services.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can you create a website for my business?
+          <span class="icon"></span>
+        </button>
+        <div class="faq-a"><p>Yes. Web design and website development are part of our regular service offering, alongside branding and print.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / QUOTE FORM ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="eyebrow" style="color:var(--yellow);">Get In Touch</div>
+        <h2>Request a quote.</h2>
+        <p>Fill out the order ticket and our team will follow up with pricing, specs and a timeline for your project.</p>
+        <div class="info-row"><span class="info-label">Phone</span><span>+63 900 000 0000</span></div>
+        <div class="info-row"><span class="info-label">Email</span><span>hello@berachahprinting.com</span></div>
+        <div class="info-row"><span class="info-label">Facebook</span><span>/BerachahPrinting</span></div>
+        <div class="info-row"><span class="info-label">Location</span><span>Tiangue Rd, Lapu-Lapu City, Cebu</span></div>
+        <div class="info-row"><span class="info-label">Hours</span><span>Mon–Sat, 8:00 AM – 6:00 PM</span></div>
+      </div>
+      <div class="order-ticket">
+        <div class="ticket-head">
+          <div class="eyebrow" style="margin-bottom:0;">Order Ticket</div>
+          <div class="tnum">No. 0001</div>
+        </div>
+        <form id="quoteForm">
+          <div class="two-col">
+            <div class="field"><label for="fname">Name</label><input type="text" id="fname" required></div>
+            <div class="field"><label for="fbiz">Business / Organization</label><input type="text" id="fbiz"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="femail">Email</label><input type="email" id="femail" required></div>
+            <div class="field"><label for="fphone">Phone / Messenger</label><input type="text" id="fphone" required></div>
+          </div>
+
+          <label style="display:block; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:10px;">What do you need?</label>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox">T-Shirt</label>
+            <label class="check-item"><input type="checkbox">Tarpaulin</label>
+            <label class="check-item"><input type="checkbox">Calling Cards</label>
+            <label class="check-item"><input type="checkbox">Stickers</label>
+            <label class="check-item"><input type="checkbox">ID</label>
+            <label class="check-item"><input type="checkbox">Mug</label>
+            <label class="check-item"><input type="checkbox">Documents</label>
+            <label class="check-item"><input type="checkbox">Graphic Design</label>
+            <label class="check-item"><input type="checkbox">Website</label>
+            <label class="check-item"><input type="checkbox">SEO / Digital</label>
+            <label class="check-item"><input type="checkbox">Other</label>
+          </div>
+
+          <div class="two-col">
+            <div class="field"><label for="fqty">Quantity</label><input type="text" id="fqty" placeholder="e.g. 50 pcs"></div>
+            <div class="field"><label for="fdeadline">Deadline</label><input type="text" id="fdeadline" placeholder="e.g. Aug 25"></div>
+          </div>
+          <div class="field"><label for="fsize">Size / Specifications</label><input type="text" id="fsize" placeholder="e.g. 3x5 ft, full color"></div>
+          <div class="field"><label for="fdetails">Project Details</label><textarea id="fdetails" placeholder="Tell us more about your project..."></textarea></div>
+
+          <div class="file-field">Choose File — Upload Artwork (optional)</div>
+
+          <button type="submit" class="btn btn-primary btn-block">Request My Quote</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="check-circle">✓</div>
+          <h3>Ticket received.</h3>
+          <p>Thanks — we'll follow up by email or phone with your quote shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo"><div class="mark"><span>B</span></div>Berachah</div>
+        <p>Printing • Design • Web • Digital Marketing for businesses in Lapu-Lapu City, Cebu.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Printing</a></li>
+          <li><a href="#services">Graphic Design</a></li>
+          <li><a href="#services">Web Design</a></li>
+          <li><a href="#services">SEO</a></li>
+          <li><a href="#services">Digital Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>+63 900 000 0000</li>
+          <li>hello@berachahprinting.com</li>
+          <li>Tiangue Rd, Lapu-Lapu City</li>
+          <li>Mon–Sat, 8AM–6PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Berachah Printing &amp; Graphic Solutions. All Rights Reserved.</span>
+      <span>Print · Design · Web · Digital Marketing</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const closePanelBtn = document.getElementById('closePanelBtn');
+const mobilePanel = document.getElementById('mobilePanel');
+hamburgerBtn.addEventListener('click', () => mobilePanel.classList.add('open'));
+closePanelBtn.addEventListener('click', () => mobilePanel.classList.remove('open'));
+mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  if(item.classList.contains('open')){ a.style.maxHeight = a.scrollHeight + 'px'; }
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(other => {
+      other.classList.remove('open');
+      other.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.12});
+revealEls.forEach(el => io.observe(el));
+
+// Order ticket number (cosmetic)
+document.querySelector('.tnum').textContent = 'No. ' + String(Math.floor(1000 + Math.random()*8999));
+
+// Form submit (front-end only demo)
+const quoteForm = document.getElementById('quoteForm');
+const formSuccess = document.getElementById('formSuccess');
+quoteForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  quoteForm.style.display = 'none';
+  formSuccess.classList.add('show');
+});
+</script>
+
+</body>
+</html>
