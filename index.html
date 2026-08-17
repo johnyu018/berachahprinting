@@ -45,7 +45,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   *,*::before,*::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
@@ -637,34 +637,88 @@ footer{background:var(--ink); color:rgba(255,255,255,0.85); padding-top:70px;}
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* ---- Tablet / small-laptop (≤980px) ---- */
 @media (max-width:980px){
   nav.primary-nav{display:none;}
   .hamburger{display:flex;}
   .hero-grid{grid-template-columns:1fr; gap:40px;}
+  .hero{padding-top:40px;}
   .services-grid{grid-template-columns:repeat(2,1fr);}
-  .why-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
   .products-grid{grid-template-columns:repeat(2,1fr);}
   .portfolio-grid{grid-template-columns:repeat(2,1fr);}
   .steps-row{grid-template-columns:repeat(2,1fr); row-gap:24px;}
   .step-arrow{display:none;}
   .solutions-wrap{grid-template-columns:1fr;}
-  .testi-grid{grid-template-columns:1fr;}
-  .about-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:repeat(2,1fr);}
+  .about-grid{grid-template-columns:1fr; gap:40px;}
+  .about-visual{max-width:420px; margin:0 auto; width:100%;}
   .contact-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .desk-cta{display:none;}
   .sticky-mobile-cta{display:flex;}
-  body{padding-bottom:64px;}
+  body{padding-bottom:70px;}
 }
+
+/* ---- Large phones / small tablets (≤768px) ---- */
+@media (max-width:768px){
+  .wrap{padding:0 20px;}
+  section{padding:72px 0;}
+  .section-head{margin-bottom:40px;}
+  .why-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .contact-info,.order-ticket{padding:40px 32px;}
+  .quote-banner{padding:64px 0;}
+  .postcard{padding:16px; border-radius:22px;}
+  .collage{grid-template-rows:repeat(3,78px); gap:10px;}
+}
+
+/* ---- Phones (≤600px) ---- */
 @media (max-width:600px){
-  section{padding:64px 0;}
-  .products-grid{grid-template-columns:1fr 1fr;}
-  .portfolio-grid{grid-template-columns:1fr 1fr;}
+  .wrap{padding:0 18px;}
+  section{padding:56px 0;}
+  .nav-row{padding:12px 0;}
+  .logo{font-size:16px; gap:8px;}
+  .logo .mark{width:38px;height:38px;}
+  .logo small{font-size:8px;}
+  .hero h1{font-size:clamp(32px,9vw,44px);}
+  .hero .sub{font-size:11.5px;}
+  .hero p.lede{font-size:15.5px;}
+  .hero-ctas{flex-direction:column; align-items:stretch;}
+  .hero-ctas .btn{justify-content:center;}
+  .trust-row{gap:12px; font-size:12.5px;}
+  .trust-row .dot{display:none;}
+  .trust-line2{font-size:16px;}
+  .services-grid{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:1fr 1fr; gap:14px;}
+  .portfolio-grid{grid-template-columns:1fr 1fr; gap:10px;}
+  .steps-row{grid-template-columns:1fr;}
   .check-grid{grid-template-columns:1fr 1fr;}
   .two-col{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr;}
-  .collage{grid-template-rows:repeat(3,70px);}
-  .stamp-badge{width:60px; height:60px; font-size:8px;}
+  .footer-grid{grid-template-columns:1fr; gap:32px;}
+  .footer-bottom{flex-direction:column; align-items:flex-start;}
+  .collage{grid-template-rows:repeat(3,64px); gap:8px;}
+  .swatch{font-size:11px; padding:8px;}
+  .stamp-badge{width:52px; height:52px; font-size:7px; top:-10px; right:-10px;}
+  .stamp-badge strong{font-size:12px;}
+  .contact-info,.order-ticket{padding:32px 22px;}
+  .contact-grid{border-radius:20px;}
+  .quote-banner{padding:52px 0;}
+  .about-visual .big-letter{font-size:min(28vw,140px);}
+  .sticky-mobile-cta{padding:10px 14px;}
+  .sticky-mobile-cta .btn{padding:12px 18px; font-size:13px;}
+}
+
+/* ---- Small phones (≤380px) ---- */
+@media (max-width:380px){
+  .wrap{padding:0 14px;}
+  .logo small{display:none;}
+  .eyebrow{font-size:10.5px; padding:5px 10px 5px 8px;}
+  .hero h1{font-size:9vw;}
+  .products-grid{grid-template-columns:1fr;}
+  .portfolio-grid{grid-template-columns:1fr;}
+  .check-grid{grid-template-columns:1fr;}
+  .btn{font-size:13.5px; padding:12px 22px;}
 }
 </style>
 </head>
@@ -1171,10 +1225,10 @@ footer{background:var(--ink); color:rgba(255,255,255,0.85); padding-top:70px;}
         <div class="eyebrow" style="background:rgba(255,255,255,0.14); color:#fff; box-shadow:none;">Get In Touch</div>
         <h2>Request a quote.</h2>
         <p>Fill out the order ticket and our team will follow up with pricing, specs and a timeline for your project.</p>
-        <div class="info-row"><span class="info-label">Phone</span><span>+63 995 615 5827</span></div>
-        <div class="info-row"><span class="info-label">Email</span><span>berachahprintshop@gmail.com</span></div>
-        <div class="info-row"><span class="info-label">Facebook</span><span>/berachahprintingandgraphics</span></div>
-        <div class="info-row"><span class="info-label">Location</span><span>Tiangue Rd, Babag 1, Lapu-Lapu City, Cebu</span></div>
+        <div class="info-row"><span class="info-label">Phone</span><span>+63 900 000 0000</span></div>
+        <div class="info-row"><span class="info-label">Email</span><span>hello@berachahprinting.com</span></div>
+        <div class="info-row"><span class="info-label">Facebook</span><span>/BerachahPrinting</span></div>
+        <div class="info-row"><span class="info-label">Location</span><span>Tiangue Rd, Lapu-Lapu City, Cebu</span></div>
         <div class="info-row"><span class="info-label">Hours</span><span>Mon–Sat, 8:00 AM – 6:00 PM</span></div>
       </div>
       <div class="order-ticket">
@@ -1260,9 +1314,9 @@ footer{background:var(--ink); color:rgba(255,255,255,0.85); padding-top:70px;}
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li>+63 995 615 5827</li>
-          <li>berachahprintshop@gmail.com</li>
-          <li>Tiangue Rd, Babag 1, Lapu-Lapu City, Cebu</li>
+          <li>+63 900 000 0000</li>
+          <li>hello@berachahprinting.com</li>
+          <li>Tiangue Rd, Lapu-Lapu City</li>
           <li>Mon–Sat, 8AM–6PM</li>
         </ul>
       </div>
