@@ -613,9 +613,13 @@ section{padding:96px 0; position:relative;}
 .check-item{display:flex; align-items:center; gap:9px; font-size:14px;}
 .check-item input{width:16px;height:16px; accent-color:var(--sunset); flex-shrink:0;}
 .file-field{
+  display:block;
   border:2px dashed var(--ocean); border-radius:var(--radius-sm); padding:20px; text-align:center; font-family:var(--font-mono); font-size:12.5px; color:var(--ocean-dark); margin-bottom:26px; cursor:pointer;
   background:rgba(0,180,184,0.06);
+  transition:background .18s ease, border-color .18s ease;
 }
+.file-field:hover{background:rgba(0,180,184,0.12);}
+.file-field.has-file{border-color:var(--palm); color:var(--palm); background:rgba(30,158,107,0.08);}
 .form-note{font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:14px; text-align:center;}
 .form-success{display:none; text-align:center; padding:40px 0;}
 .form-success.show{display:block;}
@@ -1245,41 +1249,44 @@ footer{background:var(--ink); color:rgba(255,255,255,0.85); padding-top:70px;}
           <div class="eyebrow" style="margin-bottom:0;">Order Ticket</div>
           <div class="tnum">No. 0001</div>
         </div>
-        <form id="quoteForm">
+        <form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
           <div class="two-col">
-            <div class="field"><label for="fname">Name</label><input type="text" id="fname" required></div>
-            <div class="field"><label for="fbiz">Business / Organization</label><input type="text" id="fbiz"></div>
+            <div class="field"><label for="fname">Name</label><input type="text" id="fname" name="name" required></div>
+            <div class="field"><label for="fbiz">Business / Organization</label><input type="text" id="fbiz" name="business"></div>
           </div>
           <div class="two-col">
-            <div class="field"><label for="femail">Email</label><input type="email" id="femail" required></div>
-            <div class="field"><label for="fphone">Phone / Messenger</label><input type="text" id="fphone" required></div>
+            <div class="field"><label for="femail">Email</label><input type="email" id="femail" name="email" required></div>
+            <div class="field"><label for="fphone">Phone / Messenger</label><input type="text" id="fphone" name="phone" required></div>
           </div>
 
           <label style="display:block; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:10px;">What do you need?</label>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox">T-Shirt</label>
-            <label class="check-item"><input type="checkbox">Tarpaulin</label>
-            <label class="check-item"><input type="checkbox">Calling Cards</label>
-            <label class="check-item"><input type="checkbox">Stickers</label>
-            <label class="check-item"><input type="checkbox">ID</label>
-            <label class="check-item"><input type="checkbox">Mug</label>
-            <label class="check-item"><input type="checkbox">Documents</label>
-            <label class="check-item"><input type="checkbox">Graphic Design</label>
-            <label class="check-item"><input type="checkbox">Website</label>
-            <label class="check-item"><input type="checkbox">SEO / Digital</label>
-            <label class="check-item"><input type="checkbox">Other</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="T-Shirt">T-Shirt</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Tarpaulin">Tarpaulin</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Calling Cards">Calling Cards</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Stickers">Stickers</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="ID">ID</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Mug">Mug</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Documents">Documents</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Graphic Design">Graphic Design</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Website">Website</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="SEO / Digital">SEO / Digital</label>
+            <label class="check-item"><input type="checkbox" name="services[]" value="Other">Other</label>
           </div>
 
           <div class="two-col">
-            <div class="field"><label for="fqty">Quantity</label><input type="text" id="fqty" placeholder="e.g. 50 pcs"></div>
-            <div class="field"><label for="fdeadline">Deadline</label><input type="text" id="fdeadline" placeholder="e.g. Aug 25"></div>
+            <div class="field"><label for="fqty">Quantity</label><input type="text" id="fqty" name="quantity" placeholder="e.g. 50 pcs"></div>
+            <div class="field"><label for="fdeadline">Deadline</label><input type="text" id="fdeadline" name="deadline" placeholder="e.g. Aug 25"></div>
           </div>
-          <div class="field"><label for="fsize">Size / Specifications</label><input type="text" id="fsize" placeholder="e.g. 3x5 ft, full color"></div>
-          <div class="field"><label for="fdetails">Project Details</label><textarea id="fdetails" placeholder="Tell us more about your project..."></textarea></div>
+          <div class="field"><label for="fsize">Size / Specifications</label><input type="text" id="fsize" name="specifications" placeholder="e.g. 3x5 ft, full color"></div>
+          <div class="field"><label for="fdetails">Project Details</label><textarea id="fdetails" name="details" placeholder="Tell us more about your project..."></textarea></div>
 
-          <div class="file-field">📎 Choose File — Upload Artwork (optional)</div>
+          <label class="file-field" id="fileFieldLabel" for="fartwork">📎 Choose File — Upload Artwork (optional)</label>
+          <input type="file" id="fartwork" name="artwork" accept="image/*,.pdf,.ai,.psd,.eps" style="display:none;">
 
-          <button type="submit" class="btn btn-primary btn-block">Request My Quote</button>
+          <div id="formError" style="display:none; background:#FFE9E4; border:2px solid var(--sunset); color:var(--sunset-dark); border-radius:var(--radius-sm); padding:14px 16px; font-size:13.5px; margin-bottom:20px;"></div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Request My Quote</button>
         </form>
         <div class="form-success" id="formSuccess">
           <div class="check-circle">✓</div>
@@ -1379,13 +1386,72 @@ revealEls.forEach(el => io.observe(el));
 // Order ticket number (cosmetic)
 document.querySelector('.tnum').textContent = 'No. ' + String(Math.floor(1000 + Math.random()*8999));
 
-// Form submit (front-end only demo)
+// File input — show the chosen filename on the upload box
+const fileInput = document.getElementById('fartwork');
+const fileLabel = document.getElementById('fileFieldLabel');
+const fileLabelDefault = fileLabel.textContent;
+fileInput.addEventListener('change', () => {
+  if(fileInput.files && fileInput.files.length > 0){
+    const f = fileInput.files[0];
+    const sizeOk = f.size <= 10 * 1024 * 1024; // 10MB Formspree free-tier limit
+    if(!sizeOk){
+      fileLabel.textContent = '⚠️ File too large (max 10MB) — choose a smaller file';
+      fileLabel.classList.remove('has-file');
+      fileInput.value = '';
+      return;
+    }
+    fileLabel.textContent = '✅ ' + f.name;
+    fileLabel.classList.add('has-file');
+  } else {
+    fileLabel.textContent = fileLabelDefault;
+    fileLabel.classList.remove('has-file');
+  }
+});
+
+// Form submit — sends the ticket (and any attached artwork) to Formspree
 const quoteForm = document.getElementById('quoteForm');
 const formSuccess = document.getElementById('formSuccess');
-quoteForm.addEventListener('submit', (e) => {
+const formError = document.getElementById('formError');
+const submitBtn = document.getElementById('submitBtn');
+
+quoteForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  quoteForm.style.display = 'none';
-  formSuccess.classList.add('show');
+  formError.style.display = 'none';
+
+  if(quoteForm.action.includes('YOUR_FORM_ID')){
+    formError.textContent = 'This form isn\'t connected yet — the site owner needs to add a Formspree endpoint. In the meantime, please reach out by phone or email above.';
+    formError.style.display = 'block';
+    return;
+  }
+
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+
+  try {
+    const formData = new FormData(quoteForm);
+    const res = await fetch(quoteForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if(res.ok){
+      quoteForm.style.display = 'none';
+      formSuccess.classList.add('show');
+    } else {
+      const data = await res.json().catch(() => null);
+      const msg = (data && data.errors && data.errors.map(x => x.message).join(', ')) || 'Something went wrong sending your request.';
+      formError.textContent = msg + ' Please try again, or contact us directly by phone or email.';
+      formError.style.display = 'block';
+    }
+  } catch (err) {
+    formError.textContent = 'Could not send your request — please check your connection and try again, or contact us directly by phone or email.';
+    formError.style.display = 'block';
+  } finally {
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+  }
 });
 </script>
 
